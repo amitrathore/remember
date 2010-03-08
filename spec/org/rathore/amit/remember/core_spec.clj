@@ -6,4 +6,6 @@
 (def secret-key "2b+IIJh0aX3bQns0igv2ETvMlvVJTAR+ndaevk1g")
 (def access-key "0KQ1K5PE74WQJBKRGK82")
 
+(def dev-bucket "runa-consumer-events-backup-development")
+
 

@@ -7,5 +7,4 @@
   (let [bucket (get-bucket bucket-name)
         data (str-join "\n" data-strings)
         s3-object (S3Object. object-name data)]
-    (printf "Storing in bucket: %s in object: %s and data: %s" bucket-name object-name data)
     (put-object bucket s3-object)))

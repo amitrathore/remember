@@ -9,3 +9,5 @@
         s3-object (S3Object. object-name data)]
     (put-object bucket s3-object)))
 
+(defn store-string-in-bucket [bucket-name object-name data-string]
+  (store-strings-in-bucket bucket-name object-name [data-string]))

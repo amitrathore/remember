@@ -7,7 +7,10 @@
 (defmacro with-s3-creds [[access-key secret-key] & exprs]
   `(binding [*s3-creds* (s3-creds ~access-key ~secret-key)]
      (binding [*s3-service* (RestS3Service. *s3-creds*)]
-       (do ~@exprs))))
+       (try
+        (do ~@exprs)
+        (finally
+         (.shutdown *s3-service*))))))
 
 (defn all-buckets []
   (seq (.listAllBuckets *s3-service*)))

@@ -1,4 +1,4 @@
-(ns org.rathore.amit.remember.string-store
+(ns org.rathore.amit.remember.file-store
   (:use org.rathore.amit.remember.core)
   (:import (org.jets3t.service.model S3Object)))
 

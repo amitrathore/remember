@@ -7,7 +7,10 @@
 (defmacro with-s3-creds [[access-key secret-key] & exprs]
   `(binding [*s3-creds* (s3-creds ~access-key ~secret-key)]
      (binding [*s3-service* (RestS3Service. *s3-creds*)]
-       (do ~@exprs))))
+       (try
+        (do ~@exprs)
+        (finally
+         (.shutdown *s3-service*))))))
 
 (defn all-buckets []
   (seq (.listAllBuckets *s3-service*)))
@@ -17,3 +20,15 @@
 
 (defn put-object [bucket s3-object]
   (.putObject *s3-service* bucket s3-object))
+
+(defn list-objects
+  ([bucket]
+     (seq (.listObjects *s3-service* bucket)))
+  ([bucket prefix]
+     (seq (.listObjects *s3-service* bucket prefix nil)))
+  ([bucket prefix delimiter]
+     (seq (.listObjects *s3-service* bucket prefix delimiter))))
+
+(defn get-object [bucket key]
+  (.getObject *s3-service* bucket key))
+

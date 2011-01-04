@@ -1,6 +1,7 @@
 (ns org.rathore.amit.remember.string-store
   (:use org.rathore.amit.remember.core)
   (:use clojure.contrib.str-utils)
+  (:use clojure.contrib.duck-streams)
   (:import (org.jets3t.service.model S3Object)))
 
 (defn store-strings-in-bucket [bucket-name object-name data-strings]
@@ -11,3 +12,8 @@
 
 (defn store-string-in-bucket [bucket-name object-name data-string]
   (store-strings-in-bucket bucket-name object-name [data-string]))
+
+(defn get-strings-from-bucket [bucket-name object-name]
+  (let [bucket (get-bucket bucket-name)
+        obj (get-object bucket object-name)]
+    (re-split #"\n" (slurp* (.getDataInputStream obj)))))

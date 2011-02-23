@@ -5,5 +5,5 @@
 (defn store-file-in-bucket [bucket-name object-name filename]
   (let [bucket (get-bucket bucket-name)
         data (java.io.File. filename)
-        s3-object (S3Object. object-name data)]
+        s3-object (S3Object. bucket data)]
     (put-object bucket s3-object)))

@@ -3,10 +3,13 @@
   (:import (org.jets3t.service.model S3Object))
   (:import (org.jets3t.service.acl AccessControlList)))
 
-(defn store-file-in-bucket [bucket-name  filename]
+(defn store-file-in-bucket 
+  [bucket-name filename
+     & {:keys [key]}]
   (let [bucket (get-bucket bucket-name)
-        data (java.io.File. filename)
-        s3-object (S3Object. bucket data)
+	data (java.io.File. filename)
+	s3-object (S3Object. bucket data)
 	acl AccessControlList/REST_CANNED_PUBLIC_READ]
     (.setAcl s3-object acl)
+    (if key (.setKey s3-object key))
     (put-object bucket s3-object)))

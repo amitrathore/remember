@@ -18,6 +18,9 @@
 (defn get-bucket [bucket-name]
   (.getBucket *s3-service* bucket-name))
 
+(defn create-bucket [bucket-name]
+  (.createBucket *s3-service* bucket-name))
+
 (defn put-object [bucket s3-object]
   (.putObject *s3-service* bucket s3-object))
 

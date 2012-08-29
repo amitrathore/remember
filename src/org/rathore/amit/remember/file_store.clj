@@ -6,7 +6,7 @@
 (defn store-file-in-bucket 
   [bucket-name filename
      & {:keys [key]}]
-  (let [bucket (create-bucket bucket-name)
+  (let [bucket (get-bucket bucket-name)
 	data (java.io.File. filename)
 	s3-object (S3Object. bucket data)
 	acl AccessControlList/REST_CANNED_PUBLIC_READ]
